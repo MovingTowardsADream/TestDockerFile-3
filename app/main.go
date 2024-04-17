@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"errors"
-	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
@@ -15,10 +14,6 @@ import (
 
 func newRouter() *httprouter.Router {
 	mux := httprouter.New()
-
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading env variables: %s", err)
-	}
 
 	ytApiKey := os.Getenv("YOUTUBE_API_KEY")
 	ytChannelID := os.Getenv("YOUTUBE_CHANNEL_ID")
