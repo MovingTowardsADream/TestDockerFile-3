@@ -15,7 +15,7 @@ COPY --from=root-certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY . .
 # Сборка приложения. Опция -mod=vendor указывает на использование зависимостей, находящихся в папке vendor.
 # (требуется прописать go mod vendor для создания папки с зависимостями приложения)
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=vendor -o ./youtube-stats ./app/./...
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -mod=vendor -o ./youtube-stats ./app/./...
 
 FROM scratch as final
 # Файлы /etc/passwd и /etc/group, скопированные во время этапа root-certs, копируются внутрь образа final.
