@@ -11,7 +11,7 @@ RUN adduser app -u 1001 -D -G app /home/app
 FROM golang:1.22 as builder
 WORKDIR /youtube-api-files
 # Корневые сертификаты копируются внутрь образа builder в директорию /etc/ssl/certs/.
-COPY --from=root-certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=root-certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs
 COPY . .
 # Сборка приложения. Опция -mod=vendor указывает на использование зависимостей, находящихся в папке vendor.
 # (требуется прописать go mod vendor для создания папки с зависимостями приложения)
@@ -22,7 +22,7 @@ FROM scratch as final
 COPY --from=root-certs /etc/passwd /etc/passwd
 COPY --from=root-certs /etc/group /etc/group
 # Корневые сертификаты, полученные в root-certs, копируются внутрь final в директорию /etc/ssl/certs/
-COPY --chown=1001:1001 --from=root-certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --chown=1001:1001 --from=root-certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs
 # Исполняемый файл youtube-stats, скомпилированный во время этапа builder, копируется внутрь образа final
 COPY --chown=1001:1001 --from=builder /youtube-api-files/youtube-stats /youtube-stats
 # Устанавливает пользователя app
