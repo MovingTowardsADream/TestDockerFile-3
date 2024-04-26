@@ -1,0 +1,6 @@
+youtubeStatsSettings:
+  ytAPIKey: "string"
+  ytChannelID: "TestDockerFile-3"
+
+image:
+  tag: latest
